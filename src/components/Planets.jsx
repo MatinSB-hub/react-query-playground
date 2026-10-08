@@ -11,9 +11,13 @@ function Planets() {
     queryKey: ["planets"],
     queryFn: fetchPlanets,
   });
+  console.log("data:", status);
   console.log("data:", data);
+
+  if (status === "pending") return <div>loading Data</div>;
+  if (status === "error") return <div>Error fetching Data</div>;
+
   return <div>Planets</div>;
 }
 
 export default Planets;
-
