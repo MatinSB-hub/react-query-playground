@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Planets from "./components/Planets";
-import Peolples from "./components/Peolples";
+import Peolples from "./components/Peoples";
 
 function App() {
   const [tab, setTab] = useState("planets");
