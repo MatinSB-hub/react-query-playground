@@ -19,7 +19,8 @@ function Planets() {
   if (status === "error") return <div>Error fetching Data</div>;
 
   return (
-    <div>
+    <div className="w-full flex flex-col items-center gap-2">
+      <span className="w-[40%] text-xl font-bold mb-3 ">Planets</span>
       {data.results.map((planet) => (
         <Planet key={planet.name} planet={planet} />
       ))}
