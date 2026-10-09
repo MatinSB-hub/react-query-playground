@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Planet from "./Planet";
 
 function Planets() {
   const fetchPlanets = async () => {
@@ -17,7 +18,13 @@ function Planets() {
   if (status === "pending") return <div>loading Data</div>;
   if (status === "error") return <div>Error fetching Data</div>;
 
-  return <div>Planets</div>;
+  return (
+    <div>
+      {data.results.map((planet) => (
+        <Planet key={planet.name} planet={planet} />
+      ))}
+    </div>
+  );
 }
 
 export default Planets;
