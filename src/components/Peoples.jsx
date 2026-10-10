@@ -7,12 +7,13 @@ function Peoples() {
     return res.json();
   };
 
-  const { data, status } = useQuery({
+  const { data, status, isLoading } = useQuery({
     queryKey: ["peoples"],
     queryFn: fetchPlanets,
   });
 
   console.log("people:", data);
+  console.log("isloading:", isLoading);
 
   if (status === "pending") return <div>loading Data</div>;
   if (status === "error") return <div>Error fetching Data</div>;

@@ -14,13 +14,13 @@ function App() {
       </div>
       <div className="w-full h-max flex justify-center gap-5 p-5">
         <div
-          className="rounded-2xl px-5 py-1 border-2"
+          className={`rounded-2xl px-5 py-1 border-2 ${tab === "planets" && "bg-gray-700"}`}
           onClick={() => setTab("planets")}
         >
           Planets
         </div>
         <div
-          className="rounded-2xl px-5 py-1 border-2"
+          className={`rounded-2xl px-5 py-1 border-2 ${tab === "people" && "bg-gray-700"}`}
           onClick={() => setTab("people")}
         >
           Peoples
