@@ -1,15 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import People from "./People";
+import { useState } from "react";
 
 function Peoples() {
-  const fetchPlanets = async () => {
-    const res = await fetch("http://swapi.dev/api/people/");
+  const [page, setPage] = useState(1);
+
+  const fetchPlanets = async (pageNumber) => {
+    const res = await fetch(`http://swapi.dev/api/people/?page=${pageNumber}`);
     return res.json();
   };
 
   const { data, status, isLoading } = useQuery({
-    queryKey: ["peoples"],
-    queryFn: fetchPlanets,
+    queryKey: ["peoples", page],
+    queryFn: () => fetchPlanets(page),
   });
 
   console.log("people:", data);
@@ -21,6 +24,26 @@ function Peoples() {
   return (
     <div className="w-full flex flex-col items-center gap-2">
       <span className="w-[40%] text-xl font-bold mb-3 ">People</span>
+      <div className="w-[40%] h-max flex gap-5">
+        <div
+          className={`rounded-2xl px-5 py-1 border-2`}
+          onClick={() => setPage(1)}
+        >
+          page 1
+        </div>
+        <div
+          className={`rounded-2xl px-5 py-1 border-2`}
+          onClick={() => setPage(2)}
+        >
+          page 2
+        </div>
+        <div
+          className={`rounded-2xl px-5 py-1 border-2`}
+          onClick={() => setPage(3)}
+        >
+          page 3
+        </div>
+      </div>
       {data.results.map((people) => (
         <People key={people.name} people={people} />
       ))}

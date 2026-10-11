@@ -6,7 +6,6 @@ function Planets() {
   const [page, setPage] = useState(1);
 
   const fetchPlanets = async (pageNumber) => {
-    console.log("pages:", pageNumber);
     const res = await fetch(`http://swapi.dev/api/planets/?page=${pageNumber}`);
     return res.json();
   };
@@ -15,6 +14,7 @@ function Planets() {
     queryKey: ["planets", page],
     queryFn: () => fetchPlanets(page),
   });
+
   console.log("data:", status);
   console.log("data:", data);
 
