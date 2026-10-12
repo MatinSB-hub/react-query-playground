@@ -13,6 +13,8 @@ function Peoples() {
   const { data, status, isLoading } = useQuery({
     queryKey: ["peoples", page],
     queryFn: () => fetchPlanets(page),
+    staleTime: 5000,
+    gcTime: 500000,
   });
 
   console.log("people:", data);
