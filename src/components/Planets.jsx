@@ -10,22 +10,22 @@ function Planets() {
     return res.json();
   };
 
-  const { data, status } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["planets", page],
     queryFn: () => fetchPlanets(page),
   });
 
-  console.log("data:", status);
+  console.log("data error:", error);
   console.log("data:", data);
 
-  if (status === "pending") return <div>loading Data</div>;
-  if (status === "error") return <div>Error fetching Data</div>;
+  if (isLoading) return <div>loading Data</div>;
+  if (error) return <div>Error fetching Data: {error.message}</div>;
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
       <span className="w-[40%] text-xl font-bold mb-3 ">Planets</span>
       <div className="w-[40%] h-max flex gap-5">
-        <div
+        {/* <div
           className={`rounded-2xl px-5 py-1 border-2`}
           onClick={() => setPage(1)}
         >
@@ -42,9 +42,9 @@ function Planets() {
           onClick={() => setPage(3)}
         >
           page 3
-        </div>
+        </div> */}
       </div>
-      {data.results.map((planet) => (
+      {data?.results.map((planet) => (
         <Planet key={planet.name} planet={planet} />
       ))}
     </div>

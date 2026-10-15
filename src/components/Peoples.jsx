@@ -16,7 +16,7 @@ function Peoples() {
     staleTime: 5000,
     gcTime: 500000,
   });
-
+  
   console.log("people:", data);
   console.log("isloading:", isLoading);
 
