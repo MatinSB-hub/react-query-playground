@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Post from "./Post";
 import { useState } from "react";
 
@@ -23,7 +23,22 @@ function JsonPlaceholder() {
     queryFn: fetchPosts,
   });
 
-  const mutation = useMutation({ mutationFn: createPost });
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createPost,
+    onMutate: async (newPost) => {
+      await queryClient.cancelQueries({ queryKey: ["posts"] });
+      const previousPosts = queryClient.getQueryData({ queryKey: ["posts"] });
+      queryClient.setQueriesData({ queryKey: ["posts"] }, (old) => [
+        ...old,
+        { id: 101, ...newPost },
+      ]);
+      console.log("clicked");
+      return { previousPosts };
+    },
+    // onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+  });
 
   const handleCreate = () => {
     mutation.mutate({ title, body: "new post" });
@@ -49,7 +64,7 @@ function JsonPlaceholder() {
         </button>
       </div>
 
-      {data?.slice(0, 13).map((post) => (
+      {data?.map((post) => (
         <Post key={post.id} post={post} />
       ))}
     </div>
