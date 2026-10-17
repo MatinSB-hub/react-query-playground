@@ -1,33 +1,27 @@
 import { useState } from "react";
-import Planets from "./components/Planets";
-import Peolples from "./components/Peoples";
+import Planets from "./components/swapi/Planets";
+import Peolples from "./components/swapi/Peoples";
+import Swapi from "./components/swapi";
+import JsonPlaceholder from "./components/jsonPlaceholder";
 
 function App() {
-  const [tab, setTab] = useState("planets");
+  const [tab, setTab] = useState("swapi");
 
+  const togglePage = () => {
+    tab === "swapi" ? setTab("jsonPlaceholder") : setTab("swapi");
+  };
   return (
-    <>
-      <div className="w-full flex justify-center">
-        <span className="text-6xl text-yellow-300 font-bold ">
-          Start Wars Info
-        </span>
-      </div>
-      <div className="w-full h-max flex justify-center gap-5 p-5">
-        <div
-          className={`rounded-2xl px-5 py-1 border-2 ${tab === "planets" && "bg-gray-700"}`}
-          onClick={() => setTab("planets")}
+    <div className="flex flex-col">
+      <div className="w-full h-max flex flex-row-reverse my-2">
+        <button
+          className="px-5 py-1 mr-5 border-2 rounded-xl"
+          onClick={togglePage}
         >
-          Planets
-        </div>
-        <div
-          className={`rounded-2xl px-5 py-1 border-2 ${tab === "people" && "bg-gray-700"}`}
-          onClick={() => setTab("people")}
-        >
-          Peoples
-        </div>
+          here
+        </button>
       </div>
-      {tab === "planets" ? <Planets /> : <Peolples />}
-    </>
+      {tab === "swapi" ? <Swapi /> : <JsonPlaceholder />}
+    </div>
   );
 }
 

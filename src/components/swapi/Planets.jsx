@@ -13,13 +13,14 @@ function Planets() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["planets", page],
     queryFn: () => fetchPlanets(page),
+    staleTime:5000
   });
 
-  console.log("data error:", error);
+  console.log("data loading:", isLoading);
   console.log("data:", data);
 
   if (isLoading) return <div>loading Data</div>;
-  if (error) return <div>Error fetching Data: {error.message}</div>;
+  if (error) return <div>Error fetching Data</div>;
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
@@ -44,7 +45,7 @@ function Planets() {
           page 3
         </div> */}
       </div>
-      {data?.results.map((planet) => (
+      {data.results.map((planet) => (
         <Planet key={planet.name} planet={planet} />
       ))}
     </div>
