@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import People from "./People";
 import Planets from "./Planets";
+import Peoples from "./Peoples";
 
 function Swapi() {
   const [swapiTab, setSwapiTab] = useState("planets");
@@ -25,7 +25,7 @@ function Swapi() {
           Peoples
         </div>
       </div>
-      {swapiTab === "planets" ? <Planets /> : <People />}
+      {swapiTab === "planets" ? <Planets /> : <Peoples />}
     </>
   );
 }

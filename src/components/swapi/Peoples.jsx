@@ -5,18 +5,18 @@ import { useState } from "react";
 function Peoples() {
   const [page, setPage] = useState(1);
 
-  const fetchPlanets = async (pageNumber) => {
+  const fetchPeople = async (pageNumber) => {
     const res = await fetch(`http://swapi.dev/api/people/?page=${pageNumber}`);
     return res.json();
   };
 
   const { data, status, isLoading } = useQuery({
     queryKey: ["peoples", page],
-    queryFn: () => fetchPlanets(page),
+    queryFn: () => fetchPeople(page),
     staleTime: 5000,
     gcTime: 500000,
   });
-  
+
   console.log("people:", data);
   console.log("isloading:", isLoading);
 
